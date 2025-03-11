@@ -10,8 +10,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
-import java.lang.Exception
+// Import the legacy plugin registry from the embedding-legacy package
+import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
+import io.flutter.plugin.common.BinaryMessenger
 
 public class SystemSettingsPlugin: MethodCallHandler,FlutterPlugin {
   constructor() {
@@ -25,8 +26,8 @@ public class SystemSettingsPlugin: MethodCallHandler,FlutterPlugin {
     lateinit var mPluginBinding: FlutterPlugin.FlutterPluginBinding
     lateinit var channel: MethodChannel
     @JvmStatic
-    fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "system_settings")
+    fun registerWith(registrar: BinaryMessenger) {
+      val channel = MethodChannel(registrar, "system_settings")
       channel.setMethodCallHandler(SystemSettingsPlugin())
     }
   }
